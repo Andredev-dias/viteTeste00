@@ -8,4 +8,4 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
 DESAFIO
-uma rota chamada Carrousel, dentro dessa page eu quero que o react slick aconteca com cards dentro.
+uma rota chamada Carrousel, dentro dessa page eu quero que o react slick aconteca com cards dentro. criem um componente que eh importado dentro da carrousel
