@@ -1,18 +1,25 @@
 import { Card } from "./components/Card"
 import Menu from "./components/Menu"
 
+import data from "./constants/animais.json"
+
 export const Consumo = () => {
     return(
         <div>
-            <Menu/>
-            <br />
-            Consumo JSON
-            <Card
-             name="Lucas"
-             desc="bem loko"
-             value="10,00"
-             image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIyNNZQxWyEGnS-niF1z76GmppYJEGvKGEhXDUCD_ZQg&s"
-            />
+        <Menu/>
+        <br />
+        Consumo JSON
+        {data.map((item) => {
+            return(
+                <Card
+                name={item.name}
+                desc={item.desc}
+                value={item.value}
+                image={item.image}
+                key={item.id}
+               />
+                )
+            })}
         </div>
     )
 }
