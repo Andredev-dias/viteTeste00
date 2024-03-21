@@ -10,6 +10,7 @@ const [data, setData] = useState([])
 const [page, setPage] = useState("")
 const [searchName, setSearchName] = useState("")
 
+
   useEffect(()=> {
     apiRMCharacters.get(`/character/?page=${page}&name=${searchName}`).then((response) => {
         if(!response.data.results){
@@ -47,23 +48,23 @@ const [searchName, setSearchName] = useState("")
             />
             <br />
              <section>
-             {data.map((character) => {
+             {data.map((item) => {
                 return(
-                    <>
+                    <div key={item.id}>
                     <Card 
-                    name={character.name}
-                    desc={character.species}
-                    value={character.status}
-                    image={character.image}
+                    name={item.name}
+                    desc={item.species}
+                    value={item.status}
+                    image={item.image}
                     />
                     <div>
-                      {character.status === "Alive"
+                      {item.status === "Alive"
                        ? <div style={{background: "green", width: "100px"}}>Vivo</div>
-                       : character.status === "Dead"
+                       : item.status === "Dead"
                        ? <div style={{background: "red", width: "100px"}}>Morto</div>
                        : <div style={{background: "grey", width: "100px"}}>desconhecido</div>}
                     </div>
-                    </>
+                    </div>
                 )
              })}
              </section>
