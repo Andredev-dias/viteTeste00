@@ -4,6 +4,7 @@ import { Home } from './Home.jsx'
 import { Consumo } from './Consumo.jsx'
 import { Carrousel } from './Carrousel.jsx'
 import { RickAndMorty } from './RickAndMorty.jsx'
+import { TesteInputs } from './TesteInputs.jsx'
 import './index.css'
 
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
@@ -25,10 +26,12 @@ const router = createBrowserRouter([
     path: "/Rm",
     element: <RickAndMorty />,
   },
+  {
+    path: "/TesteInputs",
+    element: <TesteInputs />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
     <RouterProvider router={router}/>
-  </React.StrictMode>,
 )
