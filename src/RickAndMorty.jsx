@@ -1,20 +1,31 @@
 import { useState } from "react"
 import { Card } from "./components/Card"
 import Menu from "./components/Menu"
- import {apiRMCharacters} from "./api/server"
+import {apiRMCharacters} from "./api/server"
 import { useEffect } from "react"
 
-
 export const RickAndMorty = () => {
+
 const [data, setData] = useState([])
 const [page, setPage] = useState("")
+const [searchName, setSearchName] = useState("")
 
   useEffect(()=> {
-    apiRMCharacters.get(`/character/?page=${page}`).then((response) => {
+    apiRMCharacters.get(`/character/?page=${page}&name=${searchName}`).then((response) => {
+        if(!response.data.results){
+            console.log("Array vazio")
+        }
         setData(response.data.results)
-        console.log(response.data.results)
+    }).catch((error) => {
+        if(error.response.status === 404){
+            console.log("Esta página não contém este personagem")
+        }
+        if(error.response.status === 500){
+            console.log("Erro de conexão com servidor")
+        }
+        console.error(error)
     })
-  }, [page])
+  }, [page, searchName])
 
     return(
         <div>
@@ -28,13 +39,33 @@ const [page, setPage] = useState("")
                 onChange={(event) => setPage(event.target.value)}
             />
             <br />
+            <input 
+                type="text" 
+                placeholder="Digite um nome" 
+                value={searchName}
+                onChange={(event) => setSearchName(event.target.value)}
+            />
+            <br />
              <section>
-                <Card 
-                    name="lalala" 
-                    desc="udhus" 
-                    value="jdisdas" 
-                    image="https://rickandmortyapi.com/api/character/avatar/414.jpeg"
-                />
+             {data.map((character) => {
+                return(
+                    <>
+                    <Card 
+                    name={character.name}
+                    desc={character.species}
+                    value={character.status}
+                    image={character.image}
+                    />
+                    <div>
+                      {character.status === "Alive"
+                       ? <div style={{background: "green", width: "100px"}}>Vivo</div>
+                       : character.status === "Dead"
+                       ? <div style={{background: "red", width: "100px"}}>Morto</div>
+                       : <div style={{background: "grey", width: "100px"}}>desconhecido</div>}
+                    </div>
+                    </>
+                )
+             })}
              </section>
         </div>
     )
